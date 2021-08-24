@@ -23,19 +23,23 @@ final class Task: Model {
 	@Field(key: "xpPoints")
 	var xpPoints: Int
 	
-	@OptionalField(key: "executingMemberID")
-	var executingMemberID: Int?
+	@Field(key: "executingMemberId")
+	var executingMemberId: UUID
+	
+	@Field(key: "executingMemberName")
+	var executingMemberName: String
 	
 	@Field(key: "completed")
 	var completed: Bool
 	
 	init() { }
 	
-	init(id: UUID? = nil, name: String, xpPoints: Int) {
+	init(id: UUID? = nil, name: String, xpPoints: Int, executingMemberId: UUID, executingMemberName: String) {
 		self.id = id
 		self.name = name
 		self.xpPoints = xpPoints
-		self.executingMemberID = nil
+		self.executingMemberId = executingMemberId
+		self.executingMemberName = executingMemberName
 		self.completed = false
 	}
 }
