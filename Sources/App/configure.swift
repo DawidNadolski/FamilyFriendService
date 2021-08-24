@@ -22,6 +22,8 @@ public func configure(_ app: Application) throws {
 	app.logger.logLevel = .debug
 	
 	app.migrations.add(CreateTask())
+	app.migrations.add(CreateShoppingList())
+	app.migrations.add(CreateShoppingListComponent())
 	
 	try app.autoMigrate().wait()
 
