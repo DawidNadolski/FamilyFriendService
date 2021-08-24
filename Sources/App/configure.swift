@@ -24,7 +24,7 @@ public func configure(_ app: Application) throws {
 	app.migrations.add(CreateTask())
 	app.migrations.add(CreateShoppingList())
 	app.migrations.add(CreateShoppingListComponent())
-	
+		
 	try app.autoMigrate().wait()
 
     try routes(app)
