@@ -6,6 +6,22 @@ func routes(_ app: Application) throws {
 		return "Hello world!"
 	}
 	
+	app.get("members") { req -> EventLoopFuture<[Member]> in
+		return req.db.query(Member.self).all()
+	}
+	
+	app.get("somemember") { req -> EventLoopFuture<Member> in
+		let member = Member(id: UUID(), familyId: UUID(), name: "Dawid Nadolski")
+		
+		return member.save(on: req.db).map { member }
+	}
+	
+	app.post("members") { req -> EventLoopFuture<Member> in
+		let member = try req.content.decode(Member.self)
+		
+		return member.save(on: req.db).map { member }
+	}
+	
 	app.get("tasks") { req -> EventLoopFuture<[Task]> in
 		return req.db.query(Task.self).all()
 	}
