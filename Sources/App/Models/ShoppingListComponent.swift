@@ -5,10 +5,8 @@
 //  Created by Dawid Nadolski on 23/08/2021.
 //
 
-import Foundation
 import Vapor
 import Fluent
-import FluentSQLiteDriver
 
 final class ShoppingListComponent: Model {
 	
@@ -17,17 +15,17 @@ final class ShoppingListComponent: Model {
 	@ID
 	var id: UUID?
 	
-	@Field(key: "listId")
-	var listId: UUID
+	@Parent(key: "listId")
+	var shoppingList: ShoppingList
 	
 	@Field(key: "name")
 	var name: String
 	
 	init() { }
 	
-	init(id: UUID? = nil, listId: UUID, name: String) {
+	init(id: UUID? = nil, listId: ShoppingList.IDValue, name: String) {
 		self.id = id
-		self.listId = listId
+		self.$shoppingList.id = listId
 		self.name = name
 	}
 }

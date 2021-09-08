@@ -1,26 +1,17 @@
 import Fluent
 import FluentSQLiteDriver
-import FluentPostgresDriver
-import Leaf
 import Vapor
 
 // configures your application
 public func configure(_ app: Application) throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-					
-	app.databases.use(
-		.postgres(
-			hostname: Environment.get("DATABASE_HOST") ?? "localhost",
-			username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
-			password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
-			database: Environment.get("DATABASE_NAME") ?? "vapor_database"
-		),
-		as: .psql
-	)
 	
+	app.databases.use(.sqlite(.file("FamilyFriend.sqlite")), as: .sqlite)
+		
 	app.logger.logLevel = .debug
 	
+	app.migrations.add(CreateFamily())
+	app.migrations.add(CreateToken())
+	app.migrations.add(CreateUser())
 	app.migrations.add(CreateMember())
 	app.migrations.add(CreateTask())
 	app.migrations.add(CreateShoppingList())

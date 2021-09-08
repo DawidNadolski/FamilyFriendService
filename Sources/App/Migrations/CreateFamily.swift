@@ -2,21 +2,22 @@
 //  File.swift
 //  
 //
-//  Created by Dawid Nadolski on 22/08/2021.
+//  Created by Dawid Nadolski on 01/09/2021.
 //
 
 import Fluent
 
-final class CreateShoppingList: Migration {
+struct CreateFamily: Migration {
 	
 	func prepare(on database: Database) -> EventLoopFuture<Void> {
-		database.schema("shoppingLists")
+		database.schema("families")
 			.id()
 			.field("name", .string, .required)
+			.field("password", .string, .required)
 			.create()
 	}
 	
 	func revert(on database: Database) -> EventLoopFuture<Void> {
-		database.schema("shoppingLists").delete()
+		database.schema("families").delete()
 	}
 }

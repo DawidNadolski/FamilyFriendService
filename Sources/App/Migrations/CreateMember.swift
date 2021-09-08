@@ -12,7 +12,7 @@ struct CreateMember: Migration {
 	func prepare(on database: Database) -> EventLoopFuture<Void> {
 		database.schema("members")
 			.id()
-			.field("familyId", .uuid, .required)
+			.field("familyId", .uuid, .required, .references("families", "id"))
 			.field("name", .string, .required)
 			.create()
 	}

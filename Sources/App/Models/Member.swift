@@ -15,17 +15,17 @@ final class Member: Model {
 	@ID
 	var id: UUID?
 	
-	@Field(key: "familyId")
-	var familyId: UUID
+	@Parent(key: "familyId")
+	var family: Family
 	
 	@Field(key: "name")
 	var name: String
 	
 	init() { }
 	
-	init(id: UUID? = nil, familyId: UUID, name: String) {
+	init(id: UUID? = nil, familyId: Family.IDValue, name: String) {
 		self.id = id
-		self.familyId = familyId
+		self.$family.id = familyId
 		self.name = name
 	}
 }

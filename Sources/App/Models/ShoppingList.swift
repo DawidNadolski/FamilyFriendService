@@ -17,13 +17,17 @@ final class ShoppingList: Model {
 	@ID
 	var id: UUID?
 	
+	@Parent(key: "familyId")
+	var family: Family
+	
 	@Field(key: "name")
 	var name: String
 	
 	init() { }
 	
-	init(id: UUID? = nil, name: String) {
+	init(id: UUID? = nil, familyId: Family.IDValue, name: String) {
 		self.id = id
+		self.$family.id = familyId
 		self.name = name
 	}
 }
