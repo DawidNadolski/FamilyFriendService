@@ -23,8 +23,8 @@ final class Task: Model {
 	@Field(key: "xpPoints")
 	var xpPoints: Int
 	
-	@Field(key: "assignedMemberId")
-	var assignedMemberId: UUID
+	@Parent(key: "assignedMemberId")
+	var assignedMember: Member
 	
 	@Field(key: "assignedMemberName")
 	var assignedMemberName: String
@@ -34,11 +34,11 @@ final class Task: Model {
 	
 	init() { }
 	
-	init(id: UUID? = nil, name: String, xpPoints: Int, assignedMemberId: UUID, assignedMemberName: String) {
+	init(id: UUID? = nil, name: String, xpPoints: Int, assignedMemberId: Member.IDValue, assignedMemberName: String) {
 		self.id = id
 		self.name = name
 		self.xpPoints = xpPoints
-		self.assignedMemberId = assignedMemberId
+		self.$assignedMember.id = assignedMemberId
 		self.assignedMemberName = assignedMemberName
 		self.completed = false
 	}

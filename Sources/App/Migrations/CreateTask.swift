@@ -14,7 +14,7 @@ struct CreateTask: Migration {
 			.id()
 			.field("name", .string, .required)
 			.field("xpPoints", .int, .required)
-			.field("assignedMemberId", .uuid, .required)
+			.field("assignedMemberId", .uuid, .required, .references("members", "id"))
 			.field("assignedMemberName", .string, .required)
 			.field("completed", .bool)
 			.create()
